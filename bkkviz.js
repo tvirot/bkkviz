@@ -77,6 +77,7 @@ d3.json('bkkviz.json', function(error, topo) {
     })
     .on('mouseover', (d,i) => {
       var ev = d3.event;
+      console.log('d.properties', d);
       showPopup(ev.pageX, ev.pageY, d.properties.dname);
     })
     .on('mouseout', function(d,i) {
