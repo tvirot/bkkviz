@@ -4,7 +4,7 @@
   "description": "",
   "main": "bkkviz.js",
   "scripts": {
-    "start": "browser-sync start --server '.' --browser \"Google Chrome\" --files \"dist/**/*.*\" --port 7000",
+    "start": "browser-sync start --server '.' --browser \"Google Chrome\" --files \"./**/*.*\" --port 7000",
     "gh-pages": "gh-pages -d .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
