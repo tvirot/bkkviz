@@ -40,6 +40,10 @@ h2 {
   display: none;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 #map {
   background-color: #fff3d9;
   height: 100%;
@@ -83,6 +87,23 @@ h2 {
 .market {
   fill: #7743b2;
   stroke: #7743b2;
+}
+
+.market-bg {
+  background-color: #7743b2;
+  color: #fff;
+}
+
+.department-store-bg {
+  background-color: yellow;
+  color: #000;
+}
+
+.point {
+  fill: #fff;
+  stroke: #222;
+  stroke-width: 3px;
+  opacity: 0.7;
 }
 
 #popup {

@@ -35,7 +35,7 @@ function projectPoint(x, y) {
 }
 
 function projectCoordinate(c) {
-  var point = map.latLngToLayerPoint(new L.LatLng(c[0], c[1]));
+  var point = map.latLngToLayerPoint(new L.LatLng(c[1], c[0]));
   return [point.x, point.y];
 }
 
@@ -62,35 +62,76 @@ function update() {
   districtPaths.attr('d', path);
 }
 
-d3.json('bkkviz.json', function(error, topo) {
-  if (error) throw error;
+d3.queue()
+  .defer(d3.json, 'bkkviz.json')
+  .defer(d3.csv, 'dataByDistrict.csv')
+  .await(function(error, topo, csv) {
+    if (error) throw error;
 
-  districts = topojson.feature(topo, topo.objects.district);
+    districts = topojson.feature(topo, topo.objects.district);
 
-  districtPaths = layer.selectAll('.district')
-    .data(districts.features)
-    .enter()
-      .append('path')
-    .attr('class', 'district')
-    .on('wheel', function(d,i) {
-      hidePopup();
-    })
-    .on('mouseover', (d,i) => {
-      var ev = d3.event;
-      console.log('d.properties', d);
-      showPopup(ev.pageX, ev.pageY, d.properties.dname);
-    })
-    .on('mouseout', function(d,i) {
-      hidePopup();
-    })
-    .on('mousemove', function(d,i) {
-      var ev = d3.event;
-      showPopup(ev.pageX, ev.pageY);
-    });
+    districtPaths = layer.append('g')
+        .classed('district-layer', true)
+      .selectAll('.district')
+        .data(districts.features)
+      .enter().append('path')
+        .attr('class', 'district')
+        .on('wheel', function(d,i) {
+          hidePopup();
+        })
+        .on('mouseover', (d,i) => {
+          var ev = d3.event;
+          showPopup(ev.pageX, ev.pageY, d.properties.dname);
+        })
+        .on('mouseout', function(d,i) {
+          hidePopup();
+        })
+        .on('mousemove', function(d,i) {
+          var ev = d3.event;
+          showPopup(ev.pageX, ev.pageY);
+        });
 
-  reset();
-  initWaypoints();
-});
+    // draw markets
+    drawPoints(
+      layer.append('g').classed('market-layer', true),
+      topojson.feature(topo, topo.objects.market).features
+    );
+    // draw department stores
+    drawPoints(
+      layer.append('g').classed('department-store-layer', true),
+      topojson.feature(topo, topo.objects.department_store).features
+    );
+
+    reset();
+    initWaypoints();
+  });
+
+function drawPoints(container, features) {
+  var points = features.map(function(d) {
+    var xy = projectCoordinate(d.geometry.coordinates);
+    return {
+      x: xy[0],
+      y: xy[1],
+      feature: d
+    };
+  });
+
+  container
+    .selectAll('.point')
+      .data(points)
+    .enter().append('circle')
+      .classed('point', true)
+      .attr('r', 0)
+      .attr('cx', function(d){return d.x;})
+      .attr('cy', function(d){return d.y;})
+}
+
+function hideAllPoints() {
+  d3.selectAll('circle.point')
+    .transition()
+      .duration(500)
+      .attr('r', 0)
+}
 
 // Waypoints
 function initWaypoints() {
@@ -98,6 +139,7 @@ function initWaypoints() {
     element: document.getElementById('cover'),
     handler: function(direction) {
       districtPaths.classed('hidden', false);
+      hideAllPoints();
     },
     offset: '-50%'
   });
@@ -106,6 +148,30 @@ function initWaypoints() {
     element: document.getElementById('market-vs-mall-0'),
     handler: function(direction) {
       districtPaths.classed('hidden', true);
+      d3.selectAll('.market-layer circle.point')
+        .transition()
+          .duration(500)
+          .attr('r', 5)
+          .style('fill', '#fff')
+      d3.selectAll('.department-store-layer circle.point')
+        .transition()
+          .duration(500)
+          .attr('r', 5)
+          .style('fill', '#fff')
+    },
+    offset: '50%'
+  });
+
+  new Waypoint({
+    element: document.getElementById('market-vs-mall-1'),
+    handler: function(direction) {
+      districtPaths.classed('hidden', true);
+      d3.selectAll('.market-layer circle.point')
+        .transition()
+          .style('fill', '#7743b2');
+      d3.selectAll('.department-store-layer circle.point')
+        .transition()
+          .style('fill', 'yellow');
     },
     offset: '50%'
   });
