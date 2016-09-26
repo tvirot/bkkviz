@@ -1,0 +1,90 @@
+html, body {
+  font-family: 'Prompt', Helvetica, sans-serif;
+  font-weight: 200;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+body {
+  position: relative;
+}
+
+section {
+  color: black;
+  height: 100%;
+  margin-top: 10%;
+}
+
+h1,h2 {
+  background-color: #313026;
+  color: white;
+  display: inline-block;
+  font-weight: 200;
+  margin: 2px;
+  margin-right: 10px;
+  padding: 8px 24px 8px 24px;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 48px;
+}
+
+h2 {
+  font-size: 36px;
+  line-height: 36px;
+}
+
+.hidden {
+  display: none;
+}
+
+#map {
+  background-color: #fff3d9;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+}
+
+.sections {
+  height: 100%;
+  position: absolute;
+  right: 0;
+  width: 45%;
+}
+
+.content {
+  box-sizing: border-box;
+  background-color: rgba(187,181,162,0.9);
+  padding: 60px 24px;
+  font-size: 24px;
+  font-weight: 400;
+  margin-top: 32px;
+  width: 90%;
+  max-height: 50%;
+  text-align: center;
+}
+
+.district {
+  fill: rgba(50,160,134,0.25);
+  stroke: rgba(50,160,134,0.5);
+  stroke-width: 1px;
+  stroke-linejoin: round;
+  cursor: pointer;
+}
+
+#popup {
+  position: relative;
+}
+
+.popupContent {
+  position: absolute;
+  color: white;
+  background-color: rgba(0,0,0,0.75);
+  padding: 10px;
+  max-width: 200px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  font-size: 14px;
+  pointer-events: none;
+}
