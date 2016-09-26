@@ -8,7 +8,7 @@
   <title>BKK Open Data</title>
 
   <link rel="stylesheet" href="bkkviz.css">
-  <link rel="stylesheet" href="vendor/leaflet.css">
+  <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">
   <link href="https://fonts.googleapis.com/css?family=Prompt:200,400&subset=thai" rel="stylesheet">
 </head>
 
@@ -64,12 +64,32 @@
       <br>
       <h1>สนามกอล์ฟ < มหาลัย</h1>
     </section>
+    <section id="market-vs-mall-1">
+      <h2>กรุงเทพมีอะไรมากกว่ากัน?</h2>
+      <br>
+      <h1>
+        <div class="inline-block market-bg">ตลาด <small>(148)</small></div>
+        vs.
+        <div class="inline-block department-store-bg">ห้าง <small>(127)</small></div>
+      </h1>
+    </section>
+    <section id="marriage">
+      <h2>ที่ไหนในกรุงเทพ...</h2>
+      <br>
+      <h1>ที่คนไปจดทะเบียนสมรส</h1>
+    </section>
+    <section id="divorce">
+      <h2>แล้วที่ไหนในกรุงเทพ...</h2>
+      <br>
+      <h1>ที่คนไปจดทะเบียนหย่า</h1>
+    </section>
   </div>
   <div id="popup">
   </div>
 
-  <script src="vendor/d3.v3.min.js"></script>
-  <script src="vendor/leaflet.js"></script>
+  <script src="node_modules/d3/d3.min.js"></script>
+  <script src="node_modules/d3-queue/build/d3-queue.min.js"></script>
+  <script src="node_modules/leaflet/dist/leaflet.js"></script>
   <script src="vendor/tile.stamen.js"></script>
   <script src="vendor/topojson.js"></script>
   <script src="vendor/waypoint.min.js"></script>
