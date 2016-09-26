@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>BKK Open Data</title>
+
+  <link rel="stylesheet" href="bkkviz.css">
+  <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">
+  <link href="https://fonts.googleapis.com/css?family=Prompt:200,400&subset=thai" rel="stylesheet">
+</head>
+
+<body>
+  <div id="map"></div>
+  <div class="sections">
+    <section id="cover">
+      <h2>SleepOver#5: YouPin</h2>
+      <br>
+      <h1>VIZ CITY SERIES</h1>
+      <div class="content">
+          กรุงเทพฯอยู่ไหน?
+      </div>
+    </section>
+    <section id="transport-0">
+      <h2>เรามี</h2>
+      <br>
+      <h1>รถไฟฟ้า</h1>
+    </section>
+    <section id="transport-1">
+      <h2>และ</h2>
+      <br>
+      <h1>รถใต้ดิน</h1>
+    </section>
+    <section id="market-vs-mall-0">
+      <h2>กรุงเทพมีอะไรมากกว่ากัน?</h2>
+      <br>
+      <h1>ตลาด vs. ห้าง</h1>
+      <div class="content">
+        ตลาด หรือ ห้างสรรพสินค้า ที่เป็นแหล่งจับจ่ายใช้สอยของคนกรุงในปัจจุบัน
+      </div>
+    </section>
+    <section id="market-vs-mall-1">
+      <h2>เฉลย:</h2>
+      <br>
+      <h1>
+        <div class="inline-block market-bg">ตลาด</div>
+        >
+        <div class="inline-block department-store-bg">ห้าง</div>
+      </h1>
+      <div class="content">
+        <ul>
+          <li> # ตลาด = 148 </li>
+          <li> # ห้างสรรพสินค้า = 127</li>
+          <li> เขต XXX ที่มีห้างสรรพสินค้าเยอะที่สุด </li>
+          <li> เขต XXX มีตลาดมากกว่าห้าง </li>
+        </ul>
+      </div>
+    </section>
+    <section id="golfcourse-vs-uni-0">
+      <h2>แล้ว</h2>
+      <br>
+      <h1>สนามกอล์ฟ vs. มหาลัย?</h1>
+    </section>
+    <section id="golfcourse-vs-uni-1">
+      <h2>เฉลย:</h2>
+      <br>
+      <h1>สนามกอล์ฟ < มหาลัย</h1>
+    </section>
+    <section id="marriage">
+      <h2>ที่ไหนในกรุงเทพ...</h2>
+      <br>
+      <h1>ที่คนไปจดทะเบียนสมรส</h1>
+    </section>
+    <section id="divorce">
+      <h2>แล้วที่ไหนในกรุงเทพ...</h2>
+      <br>
+      <h1>ที่คนไปจดทะเบียนหย่า</h1>
+    </section>
+  </div>
+  <div id="popup">
+  </div>
+
+  <script src="node_modules/d3/d3.min.js"></script>
+  <script src="node_modules/d3-queue/build/d3-queue.min.js"></script>
+  <script src="node_modules/leaflet/dist/leaflet.js"></script>
+  <script src="vendor/tile.stamen.js"></script>
+  <script src="vendor/topojson.js"></script>
+  <script src="vendor/waypoint.min.js"></script>
+  <script src="bkkviz.js"></script>
+</body>
+
+</html>
