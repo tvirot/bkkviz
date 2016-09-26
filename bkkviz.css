@@ -90,13 +90,11 @@ h2 {
 }
 
 .market-bg {
-  background-color: #7743b2;
-  color: #fff;
+  border-bottom: 4px solid #7743b2;
 }
 
 .department-store-bg {
-  background-color: yellow;
-  color: #000;
+  border-bottom: 4px solid yellow;
 }
 
 .point {
