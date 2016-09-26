@@ -127,12 +127,26 @@ function hideAllPoints() {
       .attr('r', 0)
 }
 
+function showDistricts() {
+  districtPaths.classed('hidden', false);
+}
+
+function hideDistricts() {
+  districtPaths.classed('hidden', true);
+}
+
+function colorDistrict(colorOrFunc) {
+  districtPaths
+    .style('fill', d3.functor(colorOrFunc));
+}
+
 // Waypoints
 function initWaypoints() {
   new Waypoint({
     element: document.getElementById('cover'),
     handler: function(direction) {
-      districtPaths.classed('hidden', false);
+      showDistricts();
+      colorDistrict(null);
       hideAllPoints();
     },
     offset: '-50%'
@@ -141,7 +155,7 @@ function initWaypoints() {
   new Waypoint({
     element: document.getElementById('market-vs-mall-0'),
     handler: function(direction) {
-      districtPaths.classed('hidden', true);
+      hideDistricts();
       d3.selectAll('.market-layer circle.point')
         .transition()
           .duration(500)
@@ -159,7 +173,7 @@ function initWaypoints() {
   new Waypoint({
     element: document.getElementById('market-vs-mall-1'),
     handler: function(direction) {
-      districtPaths.classed('hidden', true);
+      hideDistricts();
       d3.selectAll('.market-layer circle.point')
         .transition()
           .style('fill', '#7743b2');
