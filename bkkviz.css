@@ -57,14 +57,14 @@ h2 {
 
 .content {
   box-sizing: border-box;
-  background-color: rgba(187,181,162,0.9);
-  padding: 60px 24px;
+  border-left: 4px solid #5c7997;
+  background-color: rgba(243,239,231,0.9);
+  padding: 28px 24px;
   font-size: 24px;
   font-weight: 400;
   margin-top: 32px;
   width: 90%;
   max-height: 50%;
-  text-align: center;
 }
 
 .district {
