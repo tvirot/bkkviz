@@ -1,0 +1,23 @@
+{
+  "name": "bkkviz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bkkviz.js",
+  "scripts": {
+    "start": "browser-sync start --server '.' --browser \"Google Chrome\" --files \"dist/**/*.*\" --port 7000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tvirot/bkkviz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tvirot/bkkviz/issues"
+  },
+  "homepage": "https://github.com/tvirot/bkkviz#readme",
+  "devDependencies": {
+    "browser-sync": "^2.16.0"
+  }
+}
