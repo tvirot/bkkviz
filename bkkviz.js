@@ -152,15 +152,21 @@ function hideAllPoints() {
 }
 
 function showDistricts() {
-  districtPaths.classed('hidden', false);
+  d3.select('.district-layer')
+    .transition()
+      .style('opacity', 1)
 }
 
 function hideDistricts() {
-  districtPaths.classed('hidden', true);
+  d3.select('.district-layer')
+    .transition()
+      .style('opacity', 0)
 }
 
 function colorDistrict(colorOrFunc) {
   districtPaths
+    .transition()
+    .duration(400)
     .style('fill', d3.functor(colorOrFunc));
 }
 
