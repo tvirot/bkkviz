@@ -10,6 +10,19 @@ var popup = d3.select('#popup').append('div')
   .attr('class', 'popupContent')
   .classed('hidden', true);
 
+function showPopup(x, y, text) {
+  if(text) {
+    popup.html(text);
+  }
+  popup.style('left', x + 16 + 'px');
+  popup.style('top', y - 16 + 'px');
+  popup.classed('hidden', false);
+}
+
+function hidePopup() {
+  popup.classed('hidden', true);
+}
+
 var svg = d3.select(map.getPanes().overlayPane).append('svg')
   .attr('width', 300)
   .attr('height', 300);
@@ -60,18 +73,18 @@ d3.json('bkkviz.json', function(error, topo) {
       .append('path')
     .attr('class', 'district')
     .on('wheel', function(d,i) {
-      popup.classed('hidden', true);
+      hidePopup();
     })
     .on('mouseover', (d,i) => {
-      popup.html(d.properties.dname);
-      popup.classed('hidden', false);
+      var ev = d3.event;
+      showPopup(ev.pageX, ev.pageY, d.properties.dname);
     })
     .on('mouseout', function(d,i) {
-      popup.classed('hidden', true);
+      hidePopup();
     })
     .on('mousemove', function(d,i) {
-      popup.style('left', d3.event.pageX + 16 + 'px');
-      popup.style('top', d3.event.pageY - 16 + 'px');
+      var ev = d3.event;
+      showPopup(ev.pageX, ev.pageY);
     });
 
   reset();
