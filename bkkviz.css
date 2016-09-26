@@ -49,6 +49,7 @@ h2 {
 
 .sections {
   height: 100%;
+  pointer-events: none;
   position: absolute;
   right: 0;
   width: 45%;
@@ -72,6 +73,16 @@ h2 {
   stroke-width: 1px;
   stroke-linejoin: round;
   cursor: pointer;
+}
+
+.poc {
+  stroke-width: 4px;
+  storke-opacity: 0.5;
+}
+
+.market {
+  fill: #7743b2;
+  stroke: #7743b2;
 }
 
 #popup {
