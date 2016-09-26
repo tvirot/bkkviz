@@ -60,6 +60,9 @@ function reset() {
 
 function update() {
   districtPaths.attr('d', path);
+  d3.selectAll('circle.point')
+    .attr('cx', function(d){return projectCoordinate(d.geometry.coordinates)[0];})
+    .attr('cy', function(d){return projectCoordinate(d.geometry.coordinates)[1];})
 }
 
 d3.queue()
@@ -107,23 +110,14 @@ d3.queue()
   });
 
 function drawPoints(container, features) {
-  var points = features.map(function(d) {
-    var xy = projectCoordinate(d.geometry.coordinates);
-    return {
-      x: xy[0],
-      y: xy[1],
-      feature: d
-    };
-  });
-
   container
     .selectAll('.point')
-      .data(points)
+      .data(features)
     .enter().append('circle')
       .classed('point', true)
       .attr('r', 0)
-      .attr('cx', function(d){return d.x;})
-      .attr('cy', function(d){return d.y;})
+      .attr('cx', function(d){return projectCoordinate(d.geometry.coordinates)[0];})
+      .attr('cy', function(d){return projectCoordinate(d.geometry.coordinates)[1];})
 }
 
 function hideAllPoints() {
