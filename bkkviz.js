@@ -181,7 +181,6 @@ function drawPoints(container, features) {
         hidePopup();
       })
       .on('mouseover', (d,i) => {
-        console.log(d);
         var ev = d3.event;
         showPopup(ev.pageX, ev.pageY, d.properties.name || d.properties.mar_name);
       })
