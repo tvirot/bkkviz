@@ -12,7 +12,6 @@ map.keyboard.disable();
 var overlayMaps = { 'Map': stamenLite, 'Labels': stamenLabels };
 L.control.layers(overlayMaps).addTo(map);
 
-
 var popup = d3.select('#popup').append('div')
   .attr('class', 'popupContent')
   .classed('hidden', true);
@@ -90,28 +89,30 @@ d3.queue()
       Object.keys(row)
         .filter(function(d){return d!=='district';})
         .map(function(key){
+          // parse numbers
           row[key] = +row[key];
           return row;
         })
         .filter(function(d){return d!=='ประชากร';})
         .forEach(function(key){
+          // normalize by population
           row[key] = row[key] / row['ประชากร'];
         })
       return row;
     });
-    districtDataLookup = csv.reduce(function(acc, curr) {
+    districtDataLookup = districtData.reduce(function(acc, curr) {
       acc[curr.district] = curr;
       return acc;
     }, {});
 
     colorScales = Object.keys(districtData[0])
-        .filter(function(d){return d!=='district';})
-        .reduce(function(acc, curr){
-          acc[curr] = d3.scale.quantize()
-            .domain(d3.extent(districtData, function(d){return d[curr];}))
-            .range(['#edf8fb','#ccece6','#99d8c9','#66c2a4','#41ae76','#238b45','#005824']);
-          return acc;
-        }, {});
+      .filter(function(d){return d!=='district';})
+      .reduce(function(acc, curr){
+        acc[curr] = d3.scale.quantize()
+          .domain(d3.extent(districtData, function(d){return d[curr];}))
+          .range(['#edf8fb','#ccece6','#99d8c9','#66c2a4','#41ae76','#238b45','#005824']);
+        return acc;
+      }, {});
 
     districts = topojson.feature(topo, topo.objects.district);
 
