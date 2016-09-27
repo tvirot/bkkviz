@@ -48,6 +48,5 @@ d3.json('bkkviz.json', function(error, topo) {
     ctx.stroke();
   });
 
-  // test with Siam Paragon
-  console.log('getDistrictByLatLon', getDistrictByLatLon(13.7468, 100.5353));
+  // console.log('indexedDistricts', JSON.stringify(indexedDistricts));
 });
