@@ -45,6 +45,9 @@ var districts;
 var districtPaths, marketPoints;
 var districtData, districtDataLookup;
 var colorScales;
+function r() {
+  return Math.max((map.getZoom() - 10), 0) * 3 + 3;
+}
 
 function reset() {
   var bounds = path.bounds(districts);
@@ -63,8 +66,9 @@ function reset() {
 function update() {
   districtPaths.attr('d', path);
   d3.selectAll('circle.point')
+    .attr('r', r)
     .attr('cx', function(d){return projectCoordinate(d.geometry.coordinates)[0];})
-    .attr('cy', function(d){return projectCoordinate(d.geometry.coordinates)[1];})
+    .attr('cy', function(d){return projectCoordinate(d.geometry.coordinates)[1];});
 }
 
 d3.queue()
@@ -151,6 +155,7 @@ function drawPoints(container, features) {
       .data(features)
     .enter().append('circle')
       .classed('point', true)
+      .classed('hidden', true) // Hide all points initially
       .attr('r', 0)
       .attr('cx', function(d){return projectCoordinate(d.geometry.coordinates)[0];})
       .attr('cy', function(d){return projectCoordinate(d.geometry.coordinates)[1];})
@@ -158,6 +163,7 @@ function drawPoints(container, features) {
 
 function hideAllPoints() {
   d3.selectAll('circle.point')
+    .classed('hidden', true)
     .transition()
       .duration(100)
       .attr('r', 0)
@@ -165,12 +171,14 @@ function hideAllPoints() {
 
 function showDistricts() {
   d3.select('.district-layer')
+    .classed('hidden', false)
     .transition()
       .style('opacity', 1)
 }
 
 function hideDistricts() {
   d3.select('.district-layer')
+    .classed('hidden', true) // Need this to disable mouseover polygons
     .transition()
       .style('opacity', 0)
 }
@@ -200,9 +208,10 @@ function initWaypoints() {
       hideDistricts();
       hideAllPoints();
       d3.selectAll('.bts-layer circle.point')
+        .classed('hidden', false)
         .transition()
           .duration(500)
-          .attr('r', 5)
+          .attr('r', r)
           .style('fill', 'red')
     },
     offset: '50%'
@@ -214,14 +223,16 @@ function initWaypoints() {
       hideDistricts();
       hideAllPoints();
       d3.selectAll('.bts-layer circle.point')
+        .classed('hidden', false)
         .transition()
           .duration(500)
-          .attr('r', 5)
+          .attr('r', r)
           .style('fill', 'red')
       d3.selectAll('.mrt-layer circle.point')
+        .classed('hidden', false)
         .transition()
           .duration(500)
-          .attr('r', 5)
+          .attr('r', r)
           .style('fill', 'blue')
     },
     offset: '50%'
@@ -233,14 +244,16 @@ function initWaypoints() {
       hideDistricts();
       hideAllPoints();
       d3.selectAll('.market-layer circle.point')
+        .classed('hidden', false)
         .transition()
           .duration(500)
-          .attr('r', 5)
+          .attr('r', r)
           .style('fill', '#fff')
       d3.selectAll('.department-store-layer circle.point')
+        .classed('hidden', false)
         .transition()
           .duration(500)
-          .attr('r', 5)
+          .attr('r', r)
           .style('fill', '#fff')
     },
     offset: '50%'
@@ -252,9 +265,11 @@ function initWaypoints() {
       hideDistricts();
       hideAllPoints();
       d3.selectAll('.market-layer circle.point')
+        .classed('hidden', false)
         .transition()
           .style('fill', '#7743b2');
       d3.selectAll('.department-store-layer circle.point')
+        .classed('hidden', false)
         .transition()
           .style('fill', 'yellow');
     },
