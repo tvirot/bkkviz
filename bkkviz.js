@@ -52,6 +52,7 @@ var districts;
 var districtPaths, marketPoints;
 var districtData, districtDataLookup;
 var colorScales;
+
 function r() {
   return Math.max((map.getZoom() - 10), 0) * 1.5 + 1;
 }
@@ -88,8 +89,13 @@ d3.queue()
     districtData = csv.map(function(row){
       Object.keys(row)
         .filter(function(d){return d!=='district';})
-        .forEach(function(key){
+        .map(function(key){
           row[key] = +row[key];
+          return row;
+        })
+        .filter(function(d){return d!=='ประชากร';})
+        .forEach(function(key){
+          row[key] = row[key] / row['ประชากร'];
         })
       return row;
     });
@@ -216,6 +222,15 @@ function colorDistrict(colorOrFunc) {
     .transition()
     .duration(400)
     .style('fill', d3.functor(colorOrFunc));
+}
+
+function colorDistrictByField(field) {
+  colorDistrict(function(d) {
+    var district = d.properties.dname.replace('เขต', '');
+    var data = districtDataLookup[district];
+    if(data) return colorScales[field](data[field]);
+    return '#ccc';
+  });
 }
 
 // Waypoints
@@ -373,12 +388,7 @@ function initWaypoints() {
     handler: function(direction) {
       hideAllPoints();
       showDistricts();
-      colorDistrict(function(d) {
-        var district = d.properties.dname.replace('เขต', '');
-        var data = districtDataLookup[district];
-        if(data) return colorScales['สมรส'](data['สมรส']);
-        return '#ccc';
-      });
+      colorDistrictByField('สมรส');
     },
     offset: '10%'
   });
@@ -388,27 +398,17 @@ function initWaypoints() {
     handler: function(direction) {
       hideAllPoints();
       showDistricts();
-      colorDistrict(function(d) {
-        var district = d.properties.dname.replace('เขต', '');
-        var data = districtDataLookup[district];
-        if(data) return colorScales['หย่าร้าง'](data['หย่าร้าง']);
-        return '#ccc';
-      });
+      colorDistrictByField('หย่าร้าง');
     },
     offset: '10%'
   });
-	
+
   new Waypoint({
     element: document.getElementById('park'),
     handler: function(direction) {
       hideAllPoints();
       showDistricts();
-      colorDistrict(function(d) {
-        var district = d.properties.dname.replace('เขต', '');
-        var data = districtDataLookup[district];
-        if(data) return colorScales['พื้นที่สวน (ตรม.)'](data['พื้นที่สวน (ตรม.)']);
-        return '#ccc';
-      });
+      colorDistrictByField('พื้นที่สวน (ตรม.)');
     },
     offset: '10%'
   });
