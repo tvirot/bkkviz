@@ -68,7 +68,8 @@ function update() {
   d3.selectAll('circle.point')
     .attr('r', r)
     .attr('cx', function(d){return projectCoordinate(d.geometry.coordinates)[0];})
-    .attr('cy', function(d){return projectCoordinate(d.geometry.coordinates)[1];});
+    .attr('cy', function(d){return projectCoordinate(d.geometry.coordinates)[1];})
+    .style('stroke-width', r() * 2);
 }
 
 d3.queue()
