@@ -71,6 +71,20 @@ h2 {
   max-height: 50%;
 }
 
+.content.interactive-content {
+  pointer-events: auto;
+}
+
+#district-field-radios label{
+  display: inline-block;
+  width: 220px;
+}
+
+#district-field-radios input[type=radio]{
+  vertical-align: middle;
+  margin-bottom: 5px;
+}
+
 .district {
   fill: rgba(50,160,134,0.25);
   stroke: rgba(50,160,134,0.5);

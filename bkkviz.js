@@ -443,3 +443,8 @@ document.addEventListener('keyup', function(e) {
     );
   }
 });
+
+d3.selectAll('#district-field-radios input[type=radio]')
+  .on('click', function(d){
+    colorDistrictByField(this.value);
+  });
