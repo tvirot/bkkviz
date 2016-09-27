@@ -1,8 +1,8 @@
 var stamenLite = new L.StamenTileLayer('toner-lite');
 var stamenLabels = new L.StamenTileLayer('toner-labels');
 var map = L.map('map', {
-  center: [13.736717, 101],
-  zoom: 10,
+  center: [13.75, 100.75],
+  zoom: 11,
   layers: [stamenLite],
   scrollWheelZoom: false
 }).on('viewreset', reset);
@@ -168,10 +168,10 @@ d3.queue()
       layer.append('g').classed('golf-course-layer', true),
       topojson.feature(topo, topo.objects.golf_course).features
     );
-    // draw universities
+    // draw parks
     drawPoints(
-      layer.append('g').classed('university-layer', true),
-      topojson.feature(topo, topo.objects.university).features
+      layer.append('g').classed('park-layer', true),
+      topojson.feature(topo, topo.objects.public_park).features
     );
 
     reset();
@@ -193,7 +193,11 @@ function drawPoints(container, features) {
       })
       .on('mouseover', (d,i) => {
         var ev = d3.event;
-        showPopup(ev.pageX, ev.pageY, d.properties.name || d.properties.mar_name);
+
+        console.log(d.properties);
+        showPopup(ev.pageX, ev.pageY, d.properties.name || d.properties.mar_name ||
+        d.properties.golf_name ||
+        d.properties.park_name);
       })
       .on('mouseout', function(d,i) {
         hidePopup();
@@ -204,7 +208,6 @@ function hideAllPoints() {
   d3.selectAll('circle.point')
     .classed('hidden', true)
     .transition()
-      .duration(100)
       .attr('r', 0)
 }
 
@@ -212,6 +215,7 @@ function showDistricts() {
   d3.select('.district-layer')
     .classed('hidden', false)
     .transition()
+      .duration(400)
       .style('opacity', 1)
 }
 
@@ -224,8 +228,6 @@ function hideDistricts() {
 
 function colorDistrict(colorOrFunc) {
   districtPaths
-    .transition()
-    .duration(400)
     .style('fill', d3.functor(colorOrFunc));
 }
 
@@ -341,7 +343,7 @@ function initWaypoints() {
   });
 
   new Waypoint({
-    element: document.getElementById('golfcourse-vs-uni-0'),
+    element: document.getElementById('golfcourse-vs-park-0'),
     handler: function(direction) {
       hideDistricts();
       hideAllPoints();
@@ -353,7 +355,7 @@ function initWaypoints() {
           .style('stroke-width', r() * 2)
           .style('fill', '#444')
           .style('stroke', '#444');
-      d3.selectAll('.university-layer circle.point')
+      d3.selectAll('.park-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
@@ -366,7 +368,7 @@ function initWaypoints() {
   });
 
   new Waypoint({
-    element: document.getElementById('golfcourse-vs-uni-1'),
+    element: document.getElementById('golfcourse-vs-park-1'),
     handler: function(direction) {
       hideDistricts();
       hideAllPoints();
@@ -377,7 +379,7 @@ function initWaypoints() {
           .style('stroke-width', r() * 2)
           .style('fill', '#7743b2')
           .style('stroke', '#7743b2');
-      d3.selectAll('.university-layer circle.point')
+      d3.selectAll('.park-layer circle.point')
         .classed('hidden', false)
         .transition()
           .attr('r', r)
@@ -392,8 +394,8 @@ function initWaypoints() {
     element: document.getElementById('marriage'),
     handler: function(direction) {
       hideAllPoints();
-      showDistricts();
       colorDistrictByField('สมรส');
+      showDistricts();
     },
     offset: '10%'
   });
@@ -414,6 +416,17 @@ function initWaypoints() {
       hideAllPoints();
       showDistricts();
       colorDistrictByField('พื้นที่สวน (ตรม.)');
+    },
+    offset: '10%'
+  });
+
+  // Clear data from previous slide
+  new Waypoint({
+    element: document.getElementById('district-custom'),
+    handler: function(direction) {
+      hideAllPoints();
+      showDistricts();
+      colorDistrict('rgba(0,0,0,0.1)');
     },
     offset: '10%'
   });

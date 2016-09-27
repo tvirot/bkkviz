@@ -80,7 +80,7 @@ function update() {
 }
 
 d3.queue()
-  .defer(d3.json, 'bkkviz.json')
+  .defer(d3.json, 'all.topojson')
   .defer(d3.csv, 'dataByDistrict.csv')
   .await(function(error, topo, csv) {
     if (error) throw error;
