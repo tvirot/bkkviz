@@ -118,6 +118,18 @@ d3.queue()
           showPopup(ev.pageX, ev.pageY);
         });
 
+    console.log('topo.objects', topo.objects);
+
+    // draw markets
+    drawPoints(
+      layer.append('g').classed('bts-layer', true),
+      topojson.feature(topo, topo.objects.bts_station).features
+    );
+    // draw markets
+    drawPoints(
+      layer.append('g').classed('mrt-layer', true),
+      topojson.feature(topo, topo.objects.mrt_station).features
+    );
     // draw markets
     drawPoints(
       layer.append('g').classed('market-layer', true),
@@ -147,7 +159,7 @@ function drawPoints(container, features) {
 function hideAllPoints() {
   d3.selectAll('circle.point')
     .transition()
-      .duration(500)
+      .duration(100)
       .attr('r', 0)
 }
 
@@ -183,9 +195,43 @@ function initWaypoints() {
   });
 
   new Waypoint({
+    element: document.getElementById('transport-0'),
+    handler: function(direction) {
+      hideDistricts();
+      hideAllPoints();
+      d3.selectAll('.bts-layer circle.point')
+        .transition()
+          .duration(500)
+          .attr('r', 5)
+          .style('fill', 'red')
+    },
+    offset: '50%'
+  });
+
+  new Waypoint({
+    element: document.getElementById('transport-1'),
+    handler: function(direction) {
+      hideDistricts();
+      hideAllPoints();
+      d3.selectAll('.bts-layer circle.point')
+        .transition()
+          .duration(500)
+          .attr('r', 5)
+          .style('fill', 'red')
+      d3.selectAll('.mrt-layer circle.point')
+        .transition()
+          .duration(500)
+          .attr('r', 5)
+          .style('fill', 'blue')
+    },
+    offset: '50%'
+  });
+
+  new Waypoint({
     element: document.getElementById('market-vs-mall-0'),
     handler: function(direction) {
       hideDistricts();
+      hideAllPoints();
       d3.selectAll('.market-layer circle.point')
         .transition()
           .duration(500)
@@ -204,6 +250,7 @@ function initWaypoints() {
     element: document.getElementById('market-vs-mall-1'),
     handler: function(direction) {
       hideDistricts();
+      hideAllPoints();
       d3.selectAll('.market-layer circle.point')
         .transition()
           .style('fill', '#7743b2');
