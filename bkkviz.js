@@ -398,6 +398,21 @@ function initWaypoints() {
     },
     offset: '10%'
   });
+	
+  new Waypoint({
+    element: document.getElementById('park'),
+    handler: function(direction) {
+      hideAllPoints();
+      showDistricts();
+      colorDistrict(function(d) {
+        var district = d.properties.dname.replace('เขต', '');
+        var data = districtDataLookup[district];
+        if(data) return colorScales['พื้นที่สวน (ตรม.)'](data['พื้นที่สวน (ตรม.)']);
+        return '#ccc';
+      });
+    },
+    offset: '10%'
+  });
 }
 
 var sections = d3.selectAll('.sections section');
