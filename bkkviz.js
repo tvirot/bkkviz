@@ -123,14 +123,14 @@ d3.queue()
           showPopup(ev.pageX, ev.pageY);
         });
 
-    console.log('topo.objects', topo.objects);
+    // console.log('topo.objects', topo.objects);
 
-    // draw markets
+    // draw bts stations
     drawPoints(
       layer.append('g').classed('bts-layer', true),
       topojson.feature(topo, topo.objects.bts_station).features
     );
-    // draw markets
+    // draw mrt stations
     drawPoints(
       layer.append('g').classed('mrt-layer', true),
       topojson.feature(topo, topo.objects.mrt_station).features
@@ -144,6 +144,16 @@ d3.queue()
     drawPoints(
       layer.append('g').classed('department-store-layer', true),
       topojson.feature(topo, topo.objects.department_store).features
+    );
+    // draw golf courses
+    drawPoints(
+      layer.append('g').classed('golf-course-layer', true),
+      topojson.feature(topo, topo.objects.golf_course).features
+    );
+    // draw universities
+    drawPoints(
+      layer.append('g').classed('university-layer', true),
+      topojson.feature(topo, topo.objects.university).features
     );
 
     reset();
@@ -305,6 +315,54 @@ function initWaypoints() {
   });
 
   new Waypoint({
+    element: document.getElementById('golfcourse-vs-uni-0'),
+    handler: function(direction) {
+      hideDistricts();
+      hideAllPoints();
+      d3.selectAll('.golf-course-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', '#444')
+          .style('stroke', '#444');
+      d3.selectAll('.university-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', '#444')
+          .style('stroke', '#444');
+    },
+    offset: '50%'
+  });
+
+  new Waypoint({
+    element: document.getElementById('golfcourse-vs-uni-1'),
+    handler: function(direction) {
+      hideDistricts();
+      hideAllPoints();
+      d3.selectAll('.golf-course-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', '#7743b2')
+          .style('stroke', '#7743b2');
+      d3.selectAll('.university-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', 'yellow')
+          .style('stroke', 'yellow');
+    },
+    offset: '50%'
+  });
+
+  new Waypoint({
     element: document.getElementById('marriage'),
     handler: function(direction) {
       hideAllPoints();
@@ -353,6 +411,14 @@ function getNextSection() {
   var current = d3.bisect(sectionPos, pos);
   return Math.min(sections.size() - 1, current + 1);
 }
+
+function getCurrentSection() {
+  var pos = window.pageYOffset - 10;
+  var current = d3.bisect(sectionPos, pos);
+  return Math.min(sections.size() - 1, current);
+}
+
+d3.select('body').on('wheel', getCurrentSection);
 
 document.addEventListener('keyup', function(key) {
   // TO-DO: Add proper key binding
