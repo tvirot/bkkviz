@@ -46,7 +46,7 @@ var districtPaths, marketPoints;
 var districtData, districtDataLookup;
 var colorScales;
 function r() {
-  return Math.max((map.getZoom() - 10), 0) * 3 + 3;
+  return Math.max((map.getZoom() - 10), 0) * 1.5 + 1;
 }
 
 function reset() {
@@ -212,7 +212,9 @@ function initWaypoints() {
         .transition()
           .duration(500)
           .attr('r', r)
+          .style('stroke-width', r() * 2)
           .style('fill', 'red')
+          .style('stroke', 'red');
     },
     offset: '50%'
   });
@@ -227,13 +229,17 @@ function initWaypoints() {
         .transition()
           .duration(500)
           .attr('r', r)
+          .style('stroke-width', r() * 2)
           .style('fill', 'red')
+          .style('stroke', 'red');
       d3.selectAll('.mrt-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
+          .style('stroke-width', r() * 2)
           .style('fill', 'blue')
+          .style('stroke', 'blue');
     },
     offset: '50%'
   });
@@ -248,13 +254,17 @@ function initWaypoints() {
         .transition()
           .duration(500)
           .attr('r', r)
-          .style('fill', '#fff')
+          .style('stroke-width', r() * 2)
+          .style('fill', '#444')
+          .style('stroke', '#444');
       d3.selectAll('.department-store-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
-          .style('fill', '#fff')
+          .style('stroke-width', r() * 2)
+          .style('fill', '#444')
+          .style('stroke', '#444');
     },
     offset: '50%'
   });
@@ -267,11 +277,17 @@ function initWaypoints() {
       d3.selectAll('.market-layer circle.point')
         .classed('hidden', false)
         .transition()
-          .style('fill', '#7743b2');
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', '#7743b2')
+          .style('stroke', '#7743b2');
       d3.selectAll('.department-store-layer circle.point')
         .classed('hidden', false)
         .transition()
-          .style('fill', 'yellow');
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', 'yellow')
+          .style('stroke', 'yellow');
     },
     offset: '50%'
   });

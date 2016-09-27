@@ -79,16 +79,6 @@ h2 {
   cursor: pointer;
 }
 
-.poc {
-  stroke-width: 4px;
-  storke-opacity: 0.5;
-}
-
-.market {
-  fill: #7743b2;
-  stroke: #7743b2;
-}
-
 .market-bg {
   border-bottom: 4px solid #7743b2;
 }
@@ -98,10 +88,10 @@ h2 {
 }
 
 .point {
-  fill: #fff;
-  stroke: #222;
+  fill: #444;
+  stroke: #444;
   stroke-width: 3px;
-  opacity: 0.7;
+  stroke-opacity: 0.5;
 }
 
 #popup {
