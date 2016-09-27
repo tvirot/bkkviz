@@ -41,10 +41,14 @@ function projectCoordinate(c) {
 
 var transform = d3.geo.transform({point: projectPoint});
 var path = d3.geo.path().projection(transform);
+
 var districts;
 var districtPaths, marketPoints;
 var districtData, districtDataLookup;
 var colorScales;
+var r = function() {
+  return (map.getZoom() - 10) * 2 + 4;
+}
 
 function reset() {
   var bounds = path.bounds(districts);
@@ -118,18 +122,6 @@ d3.queue()
           showPopup(ev.pageX, ev.pageY);
         });
 
-    console.log('topo.objects', topo.objects);
-
-    // draw markets
-    drawPoints(
-      layer.append('g').classed('bts-layer', true),
-      topojson.feature(topo, topo.objects.bts_station).features
-    );
-    // draw markets
-    drawPoints(
-      layer.append('g').classed('mrt-layer', true),
-      topojson.feature(topo, topo.objects.mrt_station).features
-    );
     // draw markets
     drawPoints(
       layer.append('g').classed('market-layer', true),
@@ -159,7 +151,7 @@ function drawPoints(container, features) {
 function hideAllPoints() {
   d3.selectAll('circle.point')
     .transition()
-      .duration(100)
+      .duration(500)
       .attr('r', 0)
 }
 
@@ -195,52 +187,18 @@ function initWaypoints() {
   });
 
   new Waypoint({
-    element: document.getElementById('transport-0'),
-    handler: function(direction) {
-      hideDistricts();
-      hideAllPoints();
-      d3.selectAll('.bts-layer circle.point')
-        .transition()
-          .duration(500)
-          .attr('r', 5)
-          .style('fill', 'red')
-    },
-    offset: '50%'
-  });
-
-  new Waypoint({
-    element: document.getElementById('transport-1'),
-    handler: function(direction) {
-      hideDistricts();
-      hideAllPoints();
-      d3.selectAll('.bts-layer circle.point')
-        .transition()
-          .duration(500)
-          .attr('r', 5)
-          .style('fill', 'red')
-      d3.selectAll('.mrt-layer circle.point')
-        .transition()
-          .duration(500)
-          .attr('r', 5)
-          .style('fill', 'blue')
-    },
-    offset: '50%'
-  });
-
-  new Waypoint({
     element: document.getElementById('market-vs-mall-0'),
     handler: function(direction) {
       hideDistricts();
-      hideAllPoints();
       d3.selectAll('.market-layer circle.point')
         .transition()
           .duration(500)
-          .attr('r', 5)
+          .attr('r', r)
           .style('fill', '#fff')
       d3.selectAll('.department-store-layer circle.point')
         .transition()
           .duration(500)
-          .attr('r', 5)
+          .attr('r', r)
           .style('fill', '#fff')
     },
     offset: '50%'
@@ -250,7 +208,6 @@ function initWaypoints() {
     element: document.getElementById('market-vs-mall-1'),
     handler: function(direction) {
       hideDistricts();
-      hideAllPoints();
       d3.selectAll('.market-layer circle.point')
         .transition()
           .style('fill', '#7743b2');
