@@ -244,3 +244,27 @@ function initWaypoints() {
     offset: '50%'
   });
 }
+
+var sections = d3.selectAll('.sections section');
+var sectionPos = [];
+var topSectionPos;
+
+sections.each(function(d,i) {
+  var top = this.getBoundingClientRect().top;
+  if(i === 0) {
+    topSectionPos = top;
+  }
+  sectionPos.push(top - topSectionPos);
+});
+
+// TO-DO: Still incorrect
+function getNextSection() {
+  var pos = window.pageYOffset - 10;
+  var current = d3.bisect(sectionPos, pos);
+  return Math.min(sections.size() - 1, current + 1);
+}
+
+document.addEventListener('keyup', function(key) {
+  // TO-DO: Add proper key binding
+  sections[0][getNextSection()].scrollIntoView({block: 'start', behavior: 'smooth'});
+});
