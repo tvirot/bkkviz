@@ -1,13 +1,11 @@
-var width = 1000;
-var height = 1000;
 var canvas = document.getElementById('mask');
 var ctx = canvas.getContext('2d');
 
 var projection = d3.geo.mercator()
   .scale(110000)
   // Customize the projection to make the center of Thailand become the center of the map
-  .rotate([-100.5018, -13.73])
-  .translate([width / 2, height / 2]);
+  .rotate([-100.5718, -13.73])
+  .translate([500, 500]);
 
 var path = d3.geo.path()
   .context(ctx)
@@ -30,7 +28,7 @@ function getDistrictByIndex(index) {
 function getDistrictByLatLon(lat, lon) {
   var xy = projection([lon, lat]);
   var colors = ctx.getImageData(xy[0], xy[1], 1, 1).data;
-  var index = colors[0] * 255 * 255 + colors[1] * 255 + colors[2];
+  var index = colors[0] * 255 * 255 + colors[1] * 255 + colors[2] - 1;
   return getDistrictByIndex(index);
 }
 
@@ -40,12 +38,14 @@ d3.json('bkkviz.json', function(error, topo) {
     return d.properties.dname.replace('เขต','');
   });
   districts.forEach(function(d, i){
-    var color = decimalToHexString(i);
+    var color = decimalToHexString(i + 1);
+    ctx.strokeStyle = color;
     ctx.fillStyle = color;
     ctx.beginPath();
     path(d);
-    ctx.strokeWidth = 0;
+    ctx.lineWidth = 1;
     ctx.fill();
+    ctx.stroke();
   });
 
   // test with Siam Paragon
