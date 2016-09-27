@@ -1,8 +1,8 @@
 var stamenLite = new L.StamenTileLayer('toner-lite');
 var stamenLabels = new L.StamenTileLayer('toner-labels');
 var map = L.map('map', {
-  center: [13.736717, 101],
-  zoom: 10,
+  center: [13.75, 100.75],
+  zoom: 11,
   layers: [stamenLite],
   scrollWheelZoom: false
 }).on('viewreset', reset);
@@ -200,7 +200,6 @@ function hideAllPoints() {
   d3.selectAll('circle.point')
     .classed('hidden', true)
     .transition()
-      .duration(100)
       .attr('r', 0)
 }
 
@@ -208,6 +207,7 @@ function showDistricts() {
   d3.select('.district-layer')
     .classed('hidden', false)
     .transition()
+      .duration(400)
       .style('opacity', 1)
 }
 
@@ -220,8 +220,6 @@ function hideDistricts() {
 
 function colorDistrict(colorOrFunc) {
   districtPaths
-    .transition()
-    .duration(400)
     .style('fill', d3.functor(colorOrFunc));
 }
 
@@ -388,8 +386,8 @@ function initWaypoints() {
     element: document.getElementById('marriage'),
     handler: function(direction) {
       hideAllPoints();
-      showDistricts();
       colorDistrictByField('สมรส');
+      showDistricts();
     },
     offset: '10%'
   });
