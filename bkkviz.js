@@ -221,7 +221,7 @@ function initWaypoints() {
       colorDistrict(null);
       hideAllPoints();
     },
-    offset: '-50%'
+    offset: '-1%'
   });
 
   new Waypoint({
@@ -405,22 +405,20 @@ sections.each(function(d,i) {
   sectionPos.push(top - topSectionPos);
 });
 
-// TO-DO: Still incorrect
-function getNextSection() {
-  var pos = window.pageYOffset - 10;
-  var current = d3.bisect(sectionPos, pos);
-  return Math.min(sections.size() - 1, current + 1);
+function getSection(direction) {
+  var pos = window.pageYOffset;
+  var next = d3.bisect(sectionPos, pos);
+  if (direction === 'prev') {
+    return Math.max(0, next - 1);
+  } else {
+    return Math.min(sections.size() - 1, next);
+  }
 }
 
-function getCurrentSection() {
-  var pos = window.pageYOffset - 10;
-  var current = d3.bisect(sectionPos, pos);
-  return Math.min(sections.size() - 1, current);
-}
-
-d3.select('body').on('wheel', getCurrentSection);
-
-document.addEventListener('keyup', function(key) {
-  // TO-DO: Add proper key binding
-  sections[0][getNextSection()].scrollIntoView({block: 'start', behavior: 'smooth'});
+document.addEventListener('keyup', function(e) {
+  if (e.keyCode == 32) {
+    sections[0][getSection('next')].scrollIntoView(
+      {block: 'start', behavior: 'smooth'}
+    );
+  }
 });

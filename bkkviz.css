@@ -13,7 +13,7 @@ body {
 section {
   color: black;
   height: 100%;
-  margin-top: 10%;
+  padding-top: 10%;
 }
 
 h1,h2 {
@@ -92,7 +92,7 @@ h2 {
   stroke: #444;
   stroke-width: 3px;
   stroke-opacity: 0.5;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 #popup {
