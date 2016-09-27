@@ -1,10 +1,17 @@
+var stamenLite = new L.StamenTileLayer('toner-lite');
+var stamenLabels = new L.StamenTileLayer('toner-labels');
 var map = L.map('map', {
   center: [13.736717, 101],
   zoom: 10,
-  layers: new L.StamenTileLayer('toner-lite'),
+  layers: [stamenLite],
   scrollWheelZoom: false
 }).on('viewreset', reset);
+
 map.keyboard.disable();
+
+var overlayMaps = { 'Map': stamenLite, 'Labels': stamenLabels };
+L.control.layers(overlayMaps).addTo(map);
+
 
 var popup = d3.select('#popup').append('div')
   .attr('class', 'popupContent')
@@ -238,7 +245,7 @@ function initWaypoints() {
           .style('fill', 'red')
           .style('stroke', 'red');
     },
-    offset: '50%'
+    offset: '10%'
   });
 
   new Waypoint({
@@ -263,7 +270,7 @@ function initWaypoints() {
           .style('fill', 'blue')
           .style('stroke', 'blue');
     },
-    offset: '50%'
+    offset: '10%'
   });
 
   new Waypoint({
@@ -288,7 +295,7 @@ function initWaypoints() {
           .style('fill', '#444')
           .style('stroke', '#444');
     },
-    offset: '50%'
+    offset: '10%'
   });
 
   new Waypoint({
@@ -311,7 +318,7 @@ function initWaypoints() {
           .style('fill', 'yellow')
           .style('stroke', 'yellow');
     },
-    offset: '50%'
+    offset: '10%'
   });
 
   new Waypoint({
@@ -336,7 +343,7 @@ function initWaypoints() {
           .style('fill', '#444')
           .style('stroke', '#444');
     },
-    offset: '50%'
+    offset: '10%'
   });
 
   new Waypoint({
@@ -359,7 +366,7 @@ function initWaypoints() {
           .style('fill', 'yellow')
           .style('stroke', 'yellow');
     },
-    offset: '50%'
+    offset: '10%'
   });
 
   new Waypoint({
@@ -374,7 +381,7 @@ function initWaypoints() {
         return '#ccc';
       });
     },
-    offset: '50%'
+    offset: '10%'
   });
 
   new Waypoint({
@@ -389,7 +396,7 @@ function initWaypoints() {
         return '#ccc';
       });
     },
-    offset: '50%'
+    offset: '10%'
   });
 }
 

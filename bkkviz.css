@@ -45,7 +45,7 @@ h2 {
 }
 
 #map {
-  background-color: #fff3d9;
+  /* background-color: #fff3d9; */
   height: 100%;
   position: fixed;
   width: 100%;
