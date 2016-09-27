@@ -93,7 +93,11 @@ d3.queue()
           row[key] = +row[key];
           return row;
         })
-        .filter(function(d){return d!=='ประชากร';})
+        .filter(function(d){
+          return d!=='ประชากร'
+            && d!=='จำนวนคลอง'
+            && d!=='ปริมาณน้ำฝน (มม)';
+        })
         .forEach(function(key){
           // normalize by population
           row[key] = row[key] / row['ประชากร'];
