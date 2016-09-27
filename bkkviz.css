@@ -92,6 +92,7 @@ h2 {
   stroke: #444;
   stroke-width: 3px;
   stroke-opacity: 0.5;
+  cursor: pointer; 
 }
 
 #popup {

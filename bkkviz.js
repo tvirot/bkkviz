@@ -160,6 +160,17 @@ function drawPoints(container, features) {
       .attr('r', 0)
       .attr('cx', function(d){return projectCoordinate(d.geometry.coordinates)[0];})
       .attr('cy', function(d){return projectCoordinate(d.geometry.coordinates)[1];})
+      .on('wheel', function(d,i) {
+        hidePopup();
+      })
+      .on('mouseover', (d,i) => {
+        console.log(d);
+        var ev = d3.event;
+        showPopup(ev.pageX, ev.pageY, d.properties.name || d.properties.mar_name);
+      })
+      .on('mouseout', function(d,i) {
+        hidePopup();
+      })
 }
 
 function hideAllPoints() {
@@ -206,7 +217,7 @@ function initWaypoints() {
   new Waypoint({
     element: document.getElementById('transport-0'),
     handler: function(direction) {
-      hideDistricts();
+      hideDistricts(); // Perhaps we shouldn't hide districts?
       hideAllPoints();
       d3.selectAll('.bts-layer circle.point')
         .classed('hidden', false)
