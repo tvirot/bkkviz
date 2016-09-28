@@ -584,7 +584,7 @@ function initWaypoints() {
         if(data) {
           var m = data['อาบอบนวด'];
           var t = data['วัด'];
-          if(m > t) return red;
+          if(m > t) return pink;
           else if(t > m) return yellow;
           else return green;
         }
