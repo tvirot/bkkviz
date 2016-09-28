@@ -97,6 +97,12 @@ h2 {
 #district-field-radios label{
   display: inline-block;
   width: 220px;
+  font-size: 0.95em;
+}
+
+.interactive-content small{
+  display: block;
+  margin-top: 10px;
 }
 
 #district-field-radios input[type=radio]{
