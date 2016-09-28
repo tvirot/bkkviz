@@ -229,8 +229,6 @@ function drawPoints(container, features) {
       })
       .on('mouseover', (d,i) => {
         var ev = d3.event;
-
-        console.log(d.properties);
         showPopup(ev.pageX, ev.pageY,
           d.properties.name ||
           d.properties.mar_name ||
@@ -274,6 +272,8 @@ function colorDistrictByField(field) {
   colorDistrict(function(d) {
     var district = d.properties.dname.replace('เขต', '');
     var data = districtDataLookup[district];
+		console.log(field);
+		console.log(data[field]);
     if(data) return colorScales[field](data[field]);
     return '#ccc';
   });
