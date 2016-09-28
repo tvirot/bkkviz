@@ -585,8 +585,8 @@ function initWaypoints() {
           var m = data['อาบอบนวด'];
           var t = data['วัด'];
           if(m > t) return red;
-          else if(t > m) return green;
-          else return yellow;
+          else if(t > m) return yellow;
+          else return green;
         }
         return '#ccc';
       });
