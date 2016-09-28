@@ -1,5 +1,5 @@
 var red = '#c9252c', // แดงชาติ
-    pink = '#983c34', // ดอกบานเย็น
+    pink = '#da3e7b', // ดอกบานเย็น
     yellow = '#f2be1a', // ธงทอง
     orange = '#f15a22', // เสน
     green = '#00a05b', // มรกต
@@ -247,23 +247,22 @@ function drawPoints(container, features) {
 function hideAllPoints() {
   d3.selectAll('circle.point')
     .classed('hidden', true)
-    .transition()
-      .attr('r', 0)
+    .attr('r', 0)
 }
 
 function showDistricts() {
   d3.select('.district-layer')
-    .classed('hidden', false)
+    // .classed('hidden', false)
     .transition()
       .duration(400)
-      .style('opacity', 1)
+      .style('fill-opacity', 1)
 }
 
 function hideDistricts() {
   d3.select('.district-layer')
-    .classed('hidden', true) // Need this to disable mouseover polygons
-    .transition()
-      .style('opacity', 0)
+    //.classed('hidden', true) // Need this to disable mouseover polygons
+    .style('fill-opacity', 0)
+    .style('fill', 'none');
 }
 
 function colorDistrict(colorOrFunc) {
@@ -361,8 +360,8 @@ function initWaypoints() {
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', green)
-          .style('stroke', green);
+          .style('fill', pink)
+          .style('stroke', pink);
     },
     offset: '10%'
   });
@@ -394,8 +393,8 @@ function initWaypoints() {
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', green)
-          .style('stroke', green);
+          .style('fill', pink)
+          .style('stroke', pink);
       d3.selectAll('.chaopraya-layer circle.point')
         .classed('hidden', false)
         .transition()
@@ -443,8 +442,8 @@ function initWaypoints() {
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', green)
-          .style('stroke', green);
+          .style('fill', pink)
+          .style('stroke', pink);
       d3.selectAll('.chaopraya-layer circle.point')
         .classed('hidden', false)
         .transition()
@@ -641,9 +640,9 @@ function initWaypoints() {
         if(data) {
           var m = data['อาบอบนวด'];
           var t = data['วัด'];
-          if(m > t) return 'red';
-          else if(t > m) return 'blue';
-          else return 'yellow';
+          if(m > t) return red;
+          else if(t > m) return blue;
+          else return yellow;
         }
         return '#ccc';
       });
