@@ -585,8 +585,13 @@ function initWaypoints() {
           var m = data['อาบอบนวด'];
           var t = data['วัด'];
           if(m > t) return red;
+<<<<<<< HEAD
           else if(t > m) return green;
           else return yellow;
+=======
+          else if(t > m) return yellow;
+          else return blue;
+>>>>>>> c7ea6df2f938aa6b1635f7c6c98a74a4a36bd68c
         }
         return '#ccc';
       });
