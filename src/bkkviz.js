@@ -430,6 +430,47 @@ function initWaypoints() {
     },
     offset: '10%'
   });
+
+  new Waypoint({
+    element: document.getElementById('temple'),
+    handler: function(direction) {
+      hideAllPoints();
+      showDistricts();
+      colorDistrictByField('วัด');
+    },
+    offset: '10%'
+  });
+
+  new Waypoint({
+    element: document.getElementById('massage'),
+    handler: function(direction) {
+      hideAllPoints();
+      showDistricts();
+      colorDistrictByField('อาบอบนวด');
+    },
+    offset: '10%'
+  });
+
+  new Waypoint({
+    element: document.getElementById('temple-massage-0'),
+    handler: function(direction) {
+      hideAllPoints();
+      showDistricts();
+      colorDistrict(function(d) {
+        var district = d.properties.dname.replace('เขต', '');
+        var data = districtDataLookup[district];
+        if(data) {
+          var m = data['อาบอบนวด'];
+          var t = data['วัด'];
+          if(m > t) return 'red';
+          else if(t > m) return 'blue';
+          else return 'yellow';
+        }
+        return '#ccc';
+      });
+    },
+    offset: '10%'
+  });
 }
 
 var sections = d3.selectAll('.sections section');
