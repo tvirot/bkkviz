@@ -584,9 +584,11 @@ function initWaypoints() {
         if(data) {
           var m = data['อาบอบนวด'];
           var t = data['วัด'];
-          if(m > t) return pink;
-          else if(t > m) return yellow;
-          else return green;
+					var colorScale = d3.scale.linear()
+						.domain([-20, 0, 20])
+						.range(["#f2be1a", "white", "#da3e7b"])
+						.clamp(true);
+					return colorScale(m-t);
         }
         return '#ccc';
       });
