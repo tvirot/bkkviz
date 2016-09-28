@@ -60,19 +60,38 @@ h2 {
   width: 45%;
 }
 
-.content {
+.content, .footnote {
   box-sizing: border-box;
-  border-left: 4px solid #5c7997;
   background-color: rgba(243,239,231,0.9);
   padding: 28px 24px;
-  font-size: 24px;
-  font-weight: 400;
   margin-top: 32px;
   width: 90%;
 }
 
+.content, .footnote {
+  border-left: 4px solid #5c7997;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.footnote {
+  border-left: 4px solid #f2be1a;
+  font-size: 18px;
+  font-weight: 200;
+}
+
 .content.interactive-content {
   pointer-events: auto;
+}
+
+.icon {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 48px;
+  height: 48px;
+  vertical-align: text-bottom;
+  margin-left: -52px;
 }
 
 #district-field-radios label{
