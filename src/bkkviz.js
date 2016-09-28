@@ -272,8 +272,6 @@ function colorDistrictByField(field) {
   colorDistrict(function(d) {
     var district = d.properties.dname.replace('เขต', '');
     var data = districtDataLookup[district];
-		console.log(field);
-		console.log(data[field]);
     if(data) return colorScales[field](data[field]);
     return '#ccc';
   });
@@ -310,16 +308,16 @@ function drawTransit(system) {
       .duration(500)
       .attr('r', r)
       .style('stroke-width', r() * 2)
-      .style('fill', (system == 'water') ? red : grey)
-      .style('stroke', (system == 'water') ? red : grey);
+      .style('fill', (system == 'water') ? orange : grey)
+      .style('stroke', (system == 'water') ? orange : grey);
   d3.selectAll('.sansab-layer circle.point')
     .classed('hidden', false)
     .transition()
       .duration(500)
       .attr('r', r)
       .style('stroke-width', r() * 2)
-      .style('fill', (system == 'water') ? red : grey)
-      .style('stroke', (system == 'water') ? red : grey);
+      .style('fill', (system == 'water') ? purple : grey)
+      .style('stroke', (system == 'water') ? purple : grey);
   d3.selectAll('.train-layer circle.point')
     .classed('hidden', false)
     .transition()
@@ -427,16 +425,16 @@ function initWaypoints() {
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', '#444')
-          .style('stroke', '#444');
+          .style('fill', grey)
+          .style('stroke', grey);
       d3.selectAll('.department-store-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', '#444')
-          .style('stroke', '#444');
+          .style('fill', grey)
+          .style('stroke', grey);
     },
     offset: '10%'
   });
@@ -451,15 +449,15 @@ function initWaypoints() {
         .transition()
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', '#7743b2')
-          .style('stroke', '#7743b2');
+          .style('fill', orange)
+          .style('stroke', orange);
       d3.selectAll('.department-store-layer circle.point')
         .classed('hidden', false)
         .transition()
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', 'yellow')
-          .style('stroke', 'yellow');
+          .style('fill', blue)
+          .style('stroke', blue);
     },
     offset: '10%'
   });
@@ -475,16 +473,16 @@ function initWaypoints() {
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', '#444')
-          .style('stroke', '#444');
+          .style('fill', grey)
+          .style('stroke', grey);
       d3.selectAll('.park-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', '#444')
-          .style('stroke', '#444');
+          .style('fill', grey)
+          .style('stroke', grey);
     },
     offset: '10%'
   });
@@ -499,15 +497,15 @@ function initWaypoints() {
         .transition()
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', '#7743b2')
-          .style('stroke', '#7743b2');
+          .style('fill', blue)
+          .style('stroke', blue);
       d3.selectAll('.park-layer circle.point')
         .classed('hidden', false)
         .transition()
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', 'yellow')
-          .style('stroke', 'yellow');
+          .style('fill', orange)
+          .style('stroke', orange);
     },
     offset: '10%'
   });
@@ -549,6 +547,8 @@ function initWaypoints() {
       hideAllPoints();
       showDistricts();
       colorDistrict('rgba(0,0,0,0.1)');
+      map.addLayer(stamenLabels);
+      map.removeLayer(stamenLite);
     },
     offset: '10%'
   });
@@ -585,11 +585,23 @@ function initWaypoints() {
           var m = data['อาบอบนวด'];
           var t = data['วัด'];
           if(m > t) return red;
-          else if(t > m) return blue;
+          else if(t > m) return green;
           else return yellow;
         }
         return '#ccc';
       });
+    },
+    offset: '10%'
+  });
+
+  new Waypoint({
+    element: document.getElementById('end'),
+    handler: function(direction) {
+      showDistricts();
+      colorDistrict(null);
+      hideAllPoints();
+      map.addLayer(stamenLite);
+      map.removeLayer(stamenLabels);
     },
     offset: '10%'
   });
