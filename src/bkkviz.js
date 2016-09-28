@@ -1,3 +1,13 @@
+var red = '#c9252c', // แดงชาติ
+    pink = '#983c34', // ดอกบานเย็น
+    yellow = '#f2be1a', // ธงทอง
+    orange = '#f15a22', // เสน
+    green = '#00a05b', // มรกต
+    blue = '#0071ae', // ฟ้า
+    purple = '#6950a1'; // ดอกอัญชัญ
+
+
+
 var stamenLite = new L.StamenTileLayer('toner-lite');
 var stamenLabels = new L.StamenTileLayer('toner-labels');
 var map = L.map('map', {
@@ -72,6 +82,8 @@ function reset() {
 
 function update() {
   districtPaths.attr('d', path);
+  d3.select('.district-base path')
+    .attr('d', path);
   d3.selectAll('circle.point')
     .attr('r', r)
     .attr('cx', function(d){return projectCoordinate(d.geometry.coordinates)[0];})
@@ -120,6 +132,10 @@ d3.queue()
 
     districts = topojson.feature(topo, topo.objects.district);
 
+    layer.append('g').classed('district-base', true)
+      .append('path')
+      .datum(topojson.merge(topo, topo.objects.district.geometries));
+
     districtPaths = layer.append('g')
         .classed('district-layer', true)
       .selectAll('.district')
@@ -152,6 +168,26 @@ d3.queue()
     drawPoints(
       layer.append('g').classed('mrt-layer', true),
       topojson.feature(topo, topo.objects.mrt_station).features
+    );
+    // draw train stations
+    drawPoints(
+      layer.append('g').classed('train-layer', true),
+      topojson.feature(topo, topo.objects.train_station).features
+    );
+    // draw chaopraya piers
+    drawPoints(
+      layer.append('g').classed('chaopraya-layer', true),
+      topojson.feature(topo, topo.objects.chaopraya_pier).features
+    );
+    // draw sansab piers
+    drawPoints(
+      layer.append('g').classed('sansab-layer', true),
+      topojson.feature(topo, topo.objects.sansab_pier).features
+    );
+    // draw airport link stations
+    drawPoints(
+      layer.append('g').classed('airportlink-layer', true),
+      topojson.feature(topo, topo.objects.airportlink_station).features
     );
     // draw markets
     drawPoints(
@@ -195,9 +231,13 @@ function drawPoints(container, features) {
         var ev = d3.event;
 
         console.log(d.properties);
-        showPopup(ev.pageX, ev.pageY, d.properties.name || d.properties.mar_name ||
-        d.properties.golf_name ||
-        d.properties.park_name);
+        showPopup(ev.pageX, ev.pageY,
+          d.properties.name ||
+          d.properties.mar_name ||
+          d.properties.golf_name ||
+          d.properties.park_name ||
+          d.properties.NAME
+        );
       })
       .on('mouseout', function(d,i) {
         hidePopup();
@@ -263,8 +303,8 @@ function initWaypoints() {
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', 'red')
-          .style('stroke', 'red');
+          .style('fill', red)
+          .style('stroke', red);
     },
     offset: '10%'
   });
@@ -280,16 +320,155 @@ function initWaypoints() {
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', 'red')
-          .style('stroke', 'red');
+          .style('fill', red)
+          .style('stroke', red);
       d3.selectAll('.mrt-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', 'blue')
-          .style('stroke', 'blue');
+          .style('fill', blue)
+          .style('stroke', blue);
+    },
+    offset: '10%'
+  });
+
+  new Waypoint({
+    element: document.getElementById('transport-2'),
+    handler: function(direction) {
+      hideDistricts();
+      hideAllPoints();
+      d3.selectAll('.bts-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', red)
+          .style('stroke', red);
+      d3.selectAll('.mrt-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', blue)
+          .style('stroke', blue);
+      d3.selectAll('.airportlink-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', green)
+          .style('stroke', green);
+    },
+    offset: '10%'
+  });
+
+  new Waypoint({
+    element: document.getElementById('transport-3'),
+    handler: function(direction) {
+      hideDistricts();
+      hideAllPoints();
+      d3.selectAll('.bts-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', red)
+          .style('stroke', red);
+      d3.selectAll('.mrt-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', blue)
+          .style('stroke', blue);
+      d3.selectAll('.airportlink-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', green)
+          .style('stroke', green);
+      d3.selectAll('.chaopraya-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', blue)
+          .style('stroke', orange);
+      d3.selectAll('.sansab-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', blue)
+          .style('stroke', orange);
+    },
+    offset: '10%'
+  });
+
+  new Waypoint({
+    element: document.getElementById('transport-4'),
+    handler: function(direction) {
+      hideDistricts();
+      hideAllPoints();
+      d3.selectAll('.bts-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', red)
+          .style('stroke', red);
+      d3.selectAll('.mrt-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', blue)
+          .style('stroke', blue);
+      d3.selectAll('.airportlink-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', green)
+          .style('stroke', green);
+      d3.selectAll('.chaopraya-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', orange)
+          .style('stroke', orange);
+      d3.selectAll('.sansab-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', orange)
+          .style('stroke', orange);
+      d3.selectAll('.train-layer circle.point')
+        .classed('hidden', false)
+        .transition()
+          .duration(500)
+          .attr('r', r)
+          .style('stroke-width', r() * 2)
+          .style('fill', purple)
+          .style('stroke', purple);
     },
     offset: '10%'
   });

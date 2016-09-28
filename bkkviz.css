@@ -86,6 +86,15 @@ h2 {
   margin-bottom: 5px;
 }
 
+.district-base path {
+  fill: none;
+  stroke: rgba(50,160,134,0.5);
+  stroke-width: 6px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+
 .district {
   fill: rgba(50,160,134,0.25);
   stroke: rgba(50,160,134,0.5);
