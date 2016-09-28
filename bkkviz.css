@@ -69,7 +69,6 @@ h2 {
   font-weight: 400;
   margin-top: 32px;
   width: 90%;
-  max-height: 50%;
 }
 
 .content.interactive-content {
@@ -93,7 +92,6 @@ h2 {
   stroke-linejoin: round;
   pointer-events: none;
 }
-
 
 .district {
   fill: rgba(50,160,134,0.25);
