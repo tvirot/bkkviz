@@ -1,12 +1,11 @@
-var red = '#c9252c', // แดงชาติ
+var grey = '#666',
+    red = '#c9252c', // แดงชาติ
     pink = '#da3e7b', // ดอกบานเย็น
     yellow = '#f2be1a', // ธงทอง
     orange = '#f15a22', // เสน
     green = '#00a05b', // มรกต
     blue = '#0071ae', // ฟ้า
     purple = '#6950a1'; // ดอกอัญชัญ
-
-
 
 var stamenLite = new L.StamenTileLayer('toner-lite');
 var stamenLabels = new L.StamenTileLayer('toner-labels');
@@ -287,8 +286,22 @@ function initWaypoints() {
       showDistricts();
       colorDistrict(null);
       hideAllPoints();
+      map.addLayer(stamenLite);
+      map.removeLayer(stamenLabels);
     },
     offset: '-1%'
+  });
+
+  new Waypoint({
+    element: document.getElementById('intro'),
+    handler: function(direction) {
+      showDistricts();
+      colorDistrict(null);
+      hideAllPoints();
+      map.addLayer(stamenLabels);
+      map.removeLayer(stamenLite);
+    },
+    offset: '10%'
   });
 
   new Waypoint({
@@ -319,16 +332,16 @@ function initWaypoints() {
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', red)
-          .style('stroke', red);
+          .style('fill', grey)
+          .style('stroke', grey);
       d3.selectAll('.mrt-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', blue)
-          .style('stroke', blue);
+          .style('fill', red)
+          .style('stroke', red);
     },
     offset: '10%'
   });
@@ -344,24 +357,24 @@ function initWaypoints() {
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', red)
-          .style('stroke', red);
+          .style('fill', grey)
+          .style('stroke', grey);
       d3.selectAll('.mrt-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', blue)
-          .style('stroke', blue);
+          .style('fill', grey)
+          .style('stroke', grey);
       d3.selectAll('.airportlink-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', pink)
-          .style('stroke', pink);
+          .style('fill', red)
+          .style('stroke', red);
     },
     offset: '10%'
   });
@@ -377,32 +390,32 @@ function initWaypoints() {
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', red)
-          .style('stroke', red);
+          .style('fill', grey)
+          .style('stroke', grey);
       d3.selectAll('.mrt-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', blue)
-          .style('stroke', blue);
+          .style('fill', grey)
+          .style('stroke', grey);
       d3.selectAll('.airportlink-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', pink)
-          .style('stroke', pink);
+          .style('fill', grey)
+          .style('stroke', grey);
       d3.selectAll('.chaopraya-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', blue)
-          .style('stroke', orange);
+          .style('fill', red)
+          .style('stroke', red);
       d3.selectAll('.sansab-layer circle.point')
         .classed('hidden', false)
         .transition()
@@ -410,7 +423,7 @@ function initWaypoints() {
           .attr('r', r)
           .style('stroke-width', r() * 2)
           .style('fill', blue)
-          .style('stroke', orange);
+          .style('stroke', blue);
     },
     offset: '10%'
   });
@@ -426,48 +439,48 @@ function initWaypoints() {
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', red)
-          .style('stroke', red);
+          .style('fill', grey)
+          .style('stroke', grey);
       d3.selectAll('.mrt-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', blue)
-          .style('stroke', blue);
+          .style('fill', grey)
+          .style('stroke', grey);
       d3.selectAll('.airportlink-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', pink)
-          .style('stroke', pink);
+          .style('fill', grey)
+          .style('stroke', grey);
       d3.selectAll('.chaopraya-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', orange)
-          .style('stroke', orange);
+          .style('fill', grey)
+          .style('stroke', grey);
       d3.selectAll('.sansab-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', orange)
-          .style('stroke', orange);
+          .style('fill', grey)
+          .style('stroke', grey);
       d3.selectAll('.train-layer circle.point')
         .classed('hidden', false)
         .transition()
           .duration(500)
           .attr('r', r)
           .style('stroke-width', r() * 2)
-          .style('fill', purple)
-          .style('stroke', purple);
+          .style('fill', red)
+          .style('stroke', red);
     },
     offset: '10%'
   });
