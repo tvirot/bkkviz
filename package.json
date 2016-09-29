@@ -20,11 +20,14 @@
   "homepage": "https://github.com/tvirot/bkkviz#readme",
   "devDependencies": {
     "browser-sync": "^2.16.0",
+    "get-pixels": "^3.3.0",
     "gh-pages": "^0.11.0"
   },
   "dependencies": {
     "d3": "^3.5.17",
     "d3-queue": "^3.0.3",
-    "leaflet": "^0.7.7"
+    "leaflet": "^0.7.7",
+    "lodash": "^4.16.2",
+    "topojson": "^1.6.27"
   }
 }

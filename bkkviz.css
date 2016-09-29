@@ -13,7 +13,7 @@ body {
 section {
   color: black;
   height: 100%;
-  margin-top: 10%;
+  padding-top: 10%;
 }
 
 h1,h2 {
@@ -29,6 +29,7 @@ h1,h2 {
 h1 {
   font-size: 48px;
   line-height: 48px;
+  margin-right: 60px;
 }
 
 h2 {
@@ -45,7 +46,7 @@ h2 {
 }
 
 #map {
-  background-color: #fff3d9;
+  /* background-color: #fff3d9; */
   height: 100%;
   position: fixed;
   width: 100%;
@@ -59,16 +60,62 @@ h2 {
   width: 45%;
 }
 
-.content {
+.content, .footnote {
   box-sizing: border-box;
-  border-left: 4px solid #5c7997;
   background-color: rgba(243,239,231,0.9);
   padding: 28px 24px;
-  font-size: 24px;
-  font-weight: 400;
   margin-top: 32px;
   width: 90%;
-  max-height: 50%;
+}
+
+.content, .footnote {
+  border-left: 4px solid #5c7997;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.footnote {
+  border-left: 4px solid #f2be1a;
+  font-size: 18px;
+  font-weight: 200;
+}
+
+.content.interactive-content {
+  pointer-events: auto;
+}
+
+.icon {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 48px;
+  height: 48px;
+  vertical-align: text-bottom;
+  margin-left: -52px;
+}
+
+#district-field-radios label{
+  display: inline-block;
+  width: 220px;
+  font-size: 0.95em;
+}
+
+.interactive-content small{
+  display: block;
+  margin-top: 10px;
+}
+
+#district-field-radios input[type=radio]{
+  vertical-align: middle;
+  margin-bottom: 5px;
+}
+
+.district-base path {
+  fill: none;
+  stroke: rgba(50,160,134,0.5);
+  stroke-width: 6px;
+  stroke-linejoin: round;
+  pointer-events: none;
 }
 
 .district {
@@ -79,29 +126,41 @@ h2 {
   cursor: pointer;
 }
 
-.poc {
-  stroke-width: 4px;
-  storke-opacity: 0.5;
+.orange {
+  color: #f15a22;
 }
 
-.market {
-  fill: #7743b2;
-  stroke: #7743b2;
+.blue {
+  color: #0071ae;
 }
 
-.market-bg {
-  border-bottom: 4px solid #7743b2;
+.green {
+  color: #00a05b;
 }
 
-.department-store-bg {
-  border-bottom: 4px solid yellow;
+.red {
+  color: #c9252c;
 }
+
+.pink {
+  color: #da3e7b;
+}
+
+.yellow {
+  color: #f2be1a;
+}
+
+.white {
+	color: #ffffff;
+}
+
 
 .point {
-  fill: #fff;
-  stroke: #222;
+  fill: #444;
+  stroke: #444;
   stroke-width: 3px;
-  opacity: 0.7;
+  stroke-opacity: 0.5;
+  cursor: pointer;
 }
 
 #popup {
